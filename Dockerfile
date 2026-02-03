@@ -3,8 +3,8 @@ FROM rust:1.75-slim AS builder
 
 WORKDIR /app
 
-# Copy Cargo manifest files first to cache dependency downloads
-COPY Cargo.toml Cargo.lock ./
+# Copy only Cargo.toml first to cache dependency downloads
+COPY Cargo.toml ./
 
 # Create a dummy src/main.rs so `cargo build` can resolve & cache deps
 # without needing your full source code yet
@@ -25,11 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates
 
 WORKDIR /app
 
-# Copy the compiled binary — adjust the binary name to match your package name in Cargo.toml
-COPY --from=builder /app/target/release/my_app /app/my_app
+COPY --from=builder /app/target/release/webserver /app/webserver
 
-# Expose the port your app listens on (change as needed)
 EXPOSE 8080
 
-# Run the binary
-CMD ["./my_app"]
+CMD ["./webserver"]
