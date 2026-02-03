@@ -1,6 +1,5 @@
 {
   "schemaVersion": 2,
-  "build": {
-    "dockerfile": "Dockerfile"
-  }
+  "dockerfilePath": "./Dockerfile",
+  "context": "./"
 }
