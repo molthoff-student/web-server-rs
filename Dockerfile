@@ -1,5 +1,5 @@
 # ---------- Build Stage ----------
-FROM rust:1.75-slim AS builder
+FROM rust:1.84-slim AS builder
 
 WORKDIR /app
 
@@ -30,3 +30,4 @@ COPY --from=builder /app/target/release/webserver /app/webserver
 EXPOSE 8080
 
 CMD ["./webserver"]
+
